@@ -1,1 +1,51 @@
 
+#include "stdafx.h"
+#include "iostream"
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+	int n, m;
+	cin >> m >> n;
+	int **arr = new int*[m];
+	for (int i = 0; i<m; i++)
+	{
+		arr[i] = new int[n];
+		for (int j = 0; j<n; j++)
+		{
+			arr[i][j] = 0;
+			cout << arr[i][j];
+		}
+		cout << "\n";
+	}
+	int count = 0;
+	int virus;
+	cin >> virus;
+	int* v = new int[virus * 2];
+	for (int i = 0; i < virus; i++) {
+		int x, y;
+		cin >> x >> y;
+		v[count] = x-1;
+		v[count + 1] = y-1;
+		arr[x-1][y-1] = -1;
+		count += 2;
+	}
+	cout << endl;
+	for (int count = 0; count < virus; count+=2) {
+		for (int i = 0; i < m; i++)
+		{
+			for (int j = 0; j < n; j++)
+			{	
+				if (arr[i][j]==0)
+					arr[i][j] = abs(i - v[count]) + abs(j - v[count + 1]);
+				cout << arr[i][j]<< ' ';
+			}
+			std::cout << "\n";
+		}
+
+	}
+	system("pause");
+	return 0;
+}
