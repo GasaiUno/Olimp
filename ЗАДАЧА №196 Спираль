@@ -1,0 +1,80 @@
+// https://acmp.ru/index.asp?main=task&id_task=196
+
+#include "stdafx.h"
+#include "iostream"
+#include <stdlib.h>
+
+using namespace std;
+
+int main()
+{
+	int n;
+	cin >> n;
+	int **arr = new int*[n];
+	for (int i = 0; i<n; i++)
+	{
+		arr[i] = new int[n];
+		for (int j = 0; j<n; j++)
+		{
+			arr[i][j] = 0;
+		}
+	}
+	int num = 1;
+	int x = 0; int y = 0;
+	int mod = 1;
+	int count = n;
+	int c = 0;
+	while (num != n*n+1) {
+		switch (mod)
+		{
+		case 1:
+			for (int i = 0; i < count; i++) {
+				arr[y][x] = num;
+				x++; num++;
+			}
+			x--; y++;
+			mod = 2;
+			c++;
+			break;
+		case 2:
+			for (int i = 0; i < count; i++) {
+				arr[y][x] = num;
+				y++; num++;
+			}
+			y--; x--;
+			mod = 3;
+			c++;
+			break;
+		case 3:
+			for (int i = 0; i < count; i++) {
+				arr[y][x] = num;
+				x--; num++;
+			}
+			x++; y--;
+			mod = 4;
+			c++;
+			break;
+		case 4:
+			for (int i = 0; i < count; i++) {
+				arr[y][x] = num;
+				y--; num++;
+			}
+			y++; x++;
+			mod = 1;
+			c++;
+			break;
+		}
+		if (c % 2 == 1)
+			count--;
+	}
+	for (int i = 0; i<n; i++)
+	{
+		for (int j = 0; j<n; j++)
+		{
+			cout << arr[i][j] << " ";
+		}
+		cout << "\n";
+	}
+	system("pause");
+    return 0;
+}
