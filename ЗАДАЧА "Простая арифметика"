@@ -1,0 +1,102 @@
+#Простая арифметика
+#Дано простое арифметическое выражение (не превышающее 1000 символов), необходимо
+#Посчитать по действеям, СОГЛАСНО ПРИОРИТЕТУ
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+
+int main()
+{
+	char input[1000];
+	cin >> input;
+	strlen(input);
+	int *num = new int[strlen(input)/2];
+	char *zn = new char[strlen(input) / 2 - 1];
+	int index = 0;
+	int i = 0;
+	int f = 0;
+	string Str;
+	while (i < strlen(input)) {
+		while (input[i] != '+' && input[i] != '-'&& input[i] != '*' && input[i] != '/' && i != strlen(input)) {
+			Str = Str + input[i];
+			i++;
+		}
+		zn[f] = input[i];
+		i++;
+		num[f] = stoi(Str);
+		f++;
+		Str = "";
+	}
+
+
+	int round = 1;
+	int count = 0;
+	i = 0;
+	int n = strlen(input) / 2 - 1;
+	while (i < n) {
+		if (zn[i] == '*' || zn[i] == '/') {
+			cout << round << ") ";
+			int answer = 0;
+			round++;
+			if (zn[i] == '*') {
+				answer = num[i] * num[i + 1];
+				cout << num[i] << " * " << num[i + 1] << " = " << answer << endl;
+			}
+			else {
+				answer = num[i] / num[i + 1];
+				cout << num[i] << " / " << num[i + 1] << " = " << answer << endl;
+			}
+			num[i] = answer;
+			for (int j = i + 1; j < n; j++)
+				num[j] = num[j + 1];
+			for (int j = i; j < n; j++)
+				zn[j] = zn[j + 1];
+			n--;
+			i--;
+		}
+		count++;
+		i++;
+	}
+
+
+
+
+	i = 0;
+	n = strlen(input) / 2 - 1;
+	while (zn[0]!=0) {
+		if (zn[i] == '+' || zn[i] == '-') {
+			cout << round << ") ";
+			round++;
+			int answer = 0;
+			if (zn[i] == '+'){
+				answer = num[i] + num[i + 1];
+				cout << num[i] << " + " << num[i + 1] << " = " << answer << endl;
+			}
+			else{
+				answer = num[i] - num[i + 1];
+				cout << num[i] << " - " << num[i + 1] << " = " << answer << endl;
+			}
+			num[i] = answer;
+			for (int j = i + 1; j < n; j++)
+				num[j] = num[j + 1];
+			for (int j = i; j < n; j++)
+				zn[j] = zn[j + 1];
+			n--;
+			i--;
+		}
+		i++;
+	}
+	cout << "Answer is " << num[0] << endl;
+
+
+
+	system("pause");
+	return 0;
+}
+
+
